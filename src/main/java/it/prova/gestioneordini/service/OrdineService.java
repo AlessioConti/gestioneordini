@@ -15,7 +15,7 @@ public interface OrdineService {
 	
 	public void inserisci(Ordine ordineInstance) throws Exception;
 	
-	public void rimuovi(Ordine ordineInstance) throws Exception;
+	public void rimuovi(Long id) throws Exception;
 	
 	public void setOrdineDAO(OrdineDAO ordineDAO);
 	

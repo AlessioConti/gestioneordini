@@ -38,7 +38,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
-	public void rimuovi(Categoria categoriaInstance) throws Exception {
+	public void rimuovi(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
