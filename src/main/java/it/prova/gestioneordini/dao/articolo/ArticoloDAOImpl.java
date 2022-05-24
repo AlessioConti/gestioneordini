@@ -3,6 +3,7 @@ package it.prova.gestioneordini.dao.articolo;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.prova.gestioneordini.model.Articolo;
 
@@ -47,6 +48,12 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 	@Override
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
+	}
+	
+	public Articolo findByIdFetchingCategorie(Long id) {
+		TypedQuery<Articolo> query = entityManager.createQuery("select a from Articolo a left join fetch a.categorie c where a.id = :idCat", Articolo.class);
+		query.setParameter("idCat", id);
+		return query.getResultList().stream().findFirst().orElse(null);
 	}
 
 }
