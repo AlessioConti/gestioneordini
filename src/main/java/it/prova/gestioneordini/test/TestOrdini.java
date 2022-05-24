@@ -7,9 +7,14 @@ import it.prova.gestioneordini.service.OrdineService;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.mapping.Array;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
+import it.prova.gestioneordini.exception.ArticoloConCategoriaAssegnataException;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Ordine;
 
@@ -30,8 +35,10 @@ public class TestOrdini {
 			/*
 			testInserimentoNuovoOrdine(ordineServiceInstance);
 			System.out.println("Nella tabella Ordine ci sono " +ordineServiceInstance.listAll().size()+ " elementi.");
-			*/
+			
 			testAggiornaOrdine(ordineServiceInstance);
+			*/
+			testRimozioneArticolo(articoloServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -67,7 +74,6 @@ public class TestOrdini {
 		if (ordineTemp.getUpdateDateTime().isAfter(updateDateTimeIniziale))
 			throw new RuntimeException("testAggiornaOrdine fallito: le date di modifica sono disallineate ");
 
-		// la data creazione deve essere uguale a quella di prima
 		if (!ordineTemp.getCreateDateTime().equals(createDateTimeIniziale))
 			throw new RuntimeException("testAggiornaOrdine fallito: la data di creazione è cambiata ");
 		
@@ -90,6 +96,22 @@ public class TestOrdini {
 			throw new RuntimeException("testInserimentoArticoloInOrdine FALLITO: articolo non completato");
 		
 		//DA COMPLETARE IN CLASSE, INFORMAZIONI POCO CHIARE
+	}
+	
+	private static void testRimozioneArticolo(ArticoloService articoloServiceInstance) throws Exception{
+		System.out.println("testRimozioneArticolo inizializzato......");
+		List<Articolo> tuttiGliArticoli = articoloServiceInstance.listAll();
+		if (tuttiGliArticoli.size() == 0)
+			throw new RuntimeException("testRimozioneArticolo FAILED: articoli non esistenti");
+		
+		Articolo articoloDaRimuovere = tuttiGliArticoli.get(0);
+		
+		if(articoloServiceInstance.ricercaPerIDFetchingCategorie(articoloDaRimuovere.getId()) != null)
+			throw new ArticoloConCategoriaAssegnataException("testRimozioneArticolo failed: l'articolo ha ancora delle categorie");
+		
+		articoloServiceInstance.rimuovi(articoloDaRimuovere.getId());
+		
+		System.out.println("testRimozioneArticolo concluso.....");
 	}
 
 }

@@ -17,4 +17,6 @@ public interface ArticoloService {
 	public void rimuovi(Long id) throws Exception;
 	
 	public void setArticoloDAO(ArticoloDAO articoloDAO);
+	
+	public Articolo ricercaPerIDFetchingCategorie(Long id) throws Exception;
 }
