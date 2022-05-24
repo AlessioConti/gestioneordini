@@ -89,7 +89,7 @@ public class ArticoloServiceImpl implements ArticoloService {
 	}
 
 	@Override
-	public void setCategoriaDAO(ArticoloDAO articoloDAO) {
+	public void setArticoloDAO(ArticoloDAO articoloDAO) {
 		this.articoloDAO = articoloDAO;
 	}
 

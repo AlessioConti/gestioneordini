@@ -16,5 +16,5 @@ public interface ArticoloService {
 	
 	public void rimuovi(Long id) throws Exception;
 	
-	public void setCategoriaDAO(ArticoloDAO articoloDAO);
+	public void setArticoloDAO(ArticoloDAO articoloDAO);
 }

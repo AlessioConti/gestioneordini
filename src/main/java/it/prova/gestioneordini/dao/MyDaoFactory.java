@@ -20,14 +20,14 @@ public class MyDaoFactory {
 		return ordineDAOInstance;
 	}
 	
-	public static ArticoloDAO getArticoloDAO() {
+	public static ArticoloDAO getArticoloDAOInstance() {
 		if(articoloDAOInstance == null)
 			articoloDAOInstance = new ArticoloDAOImpl();
 			
 		return articoloDAOInstance;
 	}
 	
-	public static CategoriaDAO getCategoriaDAO() {
+	public static CategoriaDAO getCategoriaDAOInstance() {
 		if(categoriaDAOInstance == null)
 			categoriaDAOInstance = new CategoriaDAOImpl();
 		
