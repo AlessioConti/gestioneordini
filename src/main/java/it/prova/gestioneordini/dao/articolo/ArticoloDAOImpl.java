@@ -51,8 +51,8 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 	}
 	
 	public Articolo findByIdFetchingCategorie(Long id) {
-		TypedQuery<Articolo> query = entityManager.createQuery("select a from Articolo a left join fetch a.categorie c where a.id = :idCat", Articolo.class);
-		query.setParameter("idCat", id);
+		TypedQuery<Articolo> query = entityManager.createQuery("select a from Articolo a left join fetch a.categorie c where a.id = :idArt", Articolo.class);
+		query.setParameter("idArt", id);
 		return query.getResultList().stream().findFirst().orElse(null);
 	}
 
