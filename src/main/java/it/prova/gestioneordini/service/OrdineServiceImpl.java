@@ -2,45 +2,114 @@ package it.prova.gestioneordini.service;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.ordine.OrdineDAO;
 import it.prova.gestioneordini.model.Ordine;
 
 public class OrdineServiceImpl implements OrdineService {
 
+	private OrdineDAO ordineDAO;
 	@Override
 	public List<Ordine> listAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		
+		try {
+			ordineDAO.setEntityManager(entityManager);
+			
+			return ordineDAO.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
 	public Ordine caricaSingoloElemento(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+
+			ordineDAO.setEntityManager(entityManager);
+			
+			return ordineDAO.get(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
 	public void aggiorna(Ordine ordineInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
+		try {
+			entityManager.getTransaction().begin();
+			
+			ordineDAO.setEntityManager(entityManager);
+			
+			ordineDAO.update(ordineInstance);
+			
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
 	public void inserisci(Ordine ordineInstance) throws Exception {
-		// TODO Auto-generated method stub
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
+		try {
+			entityManager.getTransaction().begin();
+			
+			ordineDAO.setEntityManager(entityManager);
+			
+			ordineDAO.insert(ordineInstance);
+			
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
 	public void setOrdineDAO(OrdineDAO ordineDAO) {
-		// TODO Auto-generated method stub
-
+		this.ordineDAO = ordineDAO;
 	}
 
 	@Override
-	public void rimuovi(Ordine ordineInstance) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void rimuovi(Long id) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+			
+			ordineDAO.setEntityManager(entityManager);
+			
+			ordineDAO.delete(ordineDAO.get(id));
+			
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 }
