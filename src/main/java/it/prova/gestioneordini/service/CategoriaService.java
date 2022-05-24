@@ -16,5 +16,7 @@ public interface CategoriaService {
 	
 	public void inserisci(Categoria categoriaInstance) throws Exception;
 	
+	public void rimuovi(Categoria categoriaInstance) throws Exception;
+	
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO);
 }

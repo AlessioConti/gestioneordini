@@ -37,4 +37,10 @@ public class ArticoloServiceImpl implements ArticoloService {
 
 	}
 
+	@Override
+	public void rimuovi(Articolo articoloInstance) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

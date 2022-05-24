@@ -37,4 +37,10 @@ public class OrdineServiceImpl implements OrdineService {
 
 	}
 
+	@Override
+	public void rimuovi(Ordine ordineInstance) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
