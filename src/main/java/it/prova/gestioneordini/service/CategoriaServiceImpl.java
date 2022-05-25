@@ -9,6 +9,7 @@ import it.prova.gestioneordini.dao.categoria.CategoriaDAO;
 import it.prova.gestioneordini.exception.CategoriaConArticoliAssegnatiException;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Categoria;
+import it.prova.gestioneordini.model.Ordine;
 
 public class CategoriaServiceImpl implements CategoriaService {
 
@@ -137,6 +138,22 @@ public class CategoriaServiceImpl implements CategoriaService {
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {
 			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+	
+	public List<Categoria> cercaCategorieDistinteDatoUnOrdine(Ordine input) throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		
+		try {
+			
+			categoriaDAO.setEntityManager(entityManager);
+			
+			return categoriaDAO.findAllCategorieDistinteByOrdine(input);
+		}catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {

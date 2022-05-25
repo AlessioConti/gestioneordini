@@ -52,8 +52,10 @@ public class TestOrdini {
 			testRimozioneCategoria(categoriaServiceInstance);
 			
 			testRimozioneOrdine(ordineServiceInstance);
-			*/
+			
 			testCercaPerCategoria(ordineServiceInstance, categoriaServiceInstance);
+			*/
+			testPrendiCategorieDatoUnOrdine(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -136,8 +138,6 @@ public class TestOrdini {
 		
 		Ordine ordineProvaRimozione = new Ordine("Prova9", "Via Mosca, 26", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
 
-	
-		
 		Articolo articoloDaInserire6 = new Articolo("Test Descrizione8", 0010002, 213, new SimpleDateFormat("yyyy-MM-dd").parse("2005-05-23"));
 
 		
@@ -219,6 +219,30 @@ public class TestOrdini {
 		ordineServiceInstance.cercaOrdiniConArticoliDiCategoria(categoriaPerRicerca);
 		
 		System.out.println("testCercaPerCategoria concluso........");
+	}
+	
+	private static void testPrendiCategorieDatoUnOrdine(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception{
+		System.out.println("testPrendiCategorieDatoUnOrdine inizializzato.......");
+		
+		Ordine ordineProva = new Ordine("Prova12", "Via Mosca, 32", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
+		
+		Articolo articoloDaInserire7 = new Articolo("Test Descrizione11", 0020001, 300, new SimpleDateFormat("yyyy-MM-dd").parse("2005-05-23"));
+		
+		articoloDaInserire7.setOrdine(ordineProva);
+		ordineServiceInstance.inserisci(ordineProva);
+		articoloServiceInstance.inserisci(articoloDaInserire7);
+		
+		Categoria categoriaNuova = new Categoria("Categoria 2", "00010002");
+		categoriaServiceInstance.inserisci(categoriaNuova);
+		
+		articoloServiceInstance.aggiungiCategoria(articoloDaInserire7, categoriaNuova);
+		
+		List<Categoria> list = categoriaServiceInstance.cercaCategorieDistinteDatoUnOrdine(ordineProva);
+		
+		for(Categoria categoriaInput : list)
+			System.out.println(categoriaInput);
+		
+		System.out.println("testPrendiCategorieDatoUnOrdine concluso.......");
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import it.prova.gestioneordini.dao.categoria.CategoriaDAO;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Categoria;
+import it.prova.gestioneordini.model.Ordine;
 
 
 public interface CategoriaService {
@@ -22,4 +23,6 @@ public interface CategoriaService {
 	public void setCategoriaDAO(CategoriaDAO categoriaDAO);
 	
 	public void aggiungiArticolo(Categoria categoriaInstance, Articolo articoloInstance) throws Exception;
+	
+	public List<Categoria> cercaCategorieDistinteDatoUnOrdine(Ordine input) throws Exception;
 }
