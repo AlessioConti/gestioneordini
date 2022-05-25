@@ -39,15 +39,15 @@ public class TestOrdini {
 			
 			testAggiornaOrdine(ordineServiceInstance);
 			
-			testRimozioneArticolo(articoloServiceInstance);
-			
 			testInserimentoArticoloInOrdine(ordineServiceInstance, articoloServiceInstance);
 			
 			testRimuoviArticoloDaOrdine(ordineServiceInstance, articoloServiceInstance);
 			
 			testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
-			*/
+			
 			testAggiungiCategoriaAdArticolo(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			*/
+			testRimozioneArticolo(articoloServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -169,14 +169,10 @@ public class TestOrdini {
 	
 	private static void testRimozioneArticolo(ArticoloService articoloServiceInstance) throws Exception{
 		System.out.println("testRimozioneArticolo inizializzato......");
-		List<Articolo> tuttiGliArticoli = articoloServiceInstance.listAll();
-		if (tuttiGliArticoli.size() == 0)
-			throw new RuntimeException("testRimozioneArticolo FAILED: articoli non esistenti");
+
+		List<Articolo> articoli = articoloServiceInstance.listAll();
 		
-		Articolo articoloDaRimuovere = tuttiGliArticoli.get(0);
-		
-		if(articoloServiceInstance.ricercaPerIDFetchingCategorie(articoloDaRimuovere.getId()) != null)
-			throw new ArticoloConCategoriaAssegnataException("testRimozioneArticolo failed: l'articolo ha ancora delle categorie");
+		Articolo articoloDaRimuovere = articoli.get(0);
 		
 		articoloServiceInstance.rimuovi(articoloDaRimuovere.getId());
 		

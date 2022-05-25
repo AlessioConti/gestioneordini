@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.categoria.CategoriaDAO;
+import it.prova.gestioneordini.exception.CategoriaConArticoliAssegnatiException;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Categoria;
 
@@ -102,7 +103,12 @@ public class CategoriaServiceImpl implements CategoriaService {
 			
 			categoriaDAO.setEntityManager(entityManager);
 			
-			categoriaDAO.delete(categoriaDAO.get(id));
+			Categoria categoriaDaEliminare = categoriaDAO.findByIdFetchingArticoli(id);
+			
+			if(!categoriaDaEliminare.getArticoli().isEmpty())
+				throw new CategoriaConArticoliAssegnatiException("Impossibile cancellare la categoria");
+			
+			categoriaDAO.delete(categoriaDaEliminare);
 			
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {

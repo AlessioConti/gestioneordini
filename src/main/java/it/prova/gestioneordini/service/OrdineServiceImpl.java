@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.ordine.OrdineDAO;
+import it.prova.gestioneordini.exception.OrdineConArticoliAssegnatiException;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Ordine;
 
@@ -101,7 +102,12 @@ public class OrdineServiceImpl implements OrdineService {
 			
 			ordineDAO.setEntityManager(entityManager);
 			
-			ordineDAO.delete(ordineDAO.get(id));
+			Ordine ordineRimuovere = ordineDAO.findByIdFetchingArticoli(id);
+			
+			if(!ordineRimuovere.getArticoli().isEmpty())
+				throw new OrdineConArticoliAssegnatiException("Impossibile cancellare l'ordine");
+			
+			ordineDAO.delete(ordineRimuovere);
 			
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {
