@@ -14,4 +14,5 @@ public interface OrdineDAO extends IBaseDAO<Ordine>{
 	
 	public Ordine findIlPiuRecentementeSpeditoDataCategoria(Categoria input);
 	
+	public List<String> findIndirizziConStringaNelNumeroSerialeArticoli(int input);
 }

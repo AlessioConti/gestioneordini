@@ -62,8 +62,11 @@ public class TestOrdini {
 			testFindIlPiuRecentementeSpeditoDataCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 			testCercaListaOrdiniFattiAFebbraio(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
-			*/
+			
 			testCercaLaSommaPrezziArticoliMarioRossi(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			*/
+			testCercaListaIndirizziConNumeroSerialeArticoloCheContiene(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -323,7 +326,7 @@ public class TestOrdini {
 		System.out.println("testCercaListaOrdiniFattiAFebbraio concluso........");
 	}
 	
-	public static void testCercaLaSommaPrezziArticoliMarioRossi(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception {
+	private static void testCercaLaSommaPrezziArticoliMarioRossi(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception {
 		System.out.println("testCercaLaSommaPrezziArticoliMarioRossi inizializzato.....");
 		
 		Ordine ordinePerTest15 = new Ordine("Mario Rossi", "Via Mosca 44",
@@ -346,4 +349,30 @@ public class TestOrdini {
 		
 		System.out.println("testCercaLaSommaPrezziArticoliMarioRossi concluso........");
 	}	
+	
+	private static void testCercaListaIndirizziConNumeroSerialeArticoloCheContiene(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception {
+		System.out.println("testCercaListaIndirizziConNumeroSerialeArticoloCheContiene inizializzato...");
+		
+		Ordine ordinePerTest16 = new Ordine("Alessio Conti", "Via Mosca 46",
+				new SimpleDateFormat("dd/MM/yyyy").parse("30/07/2012"));
+		Articolo articoloPerTest13 = new Articolo("Prova17", 00060002, 250,
+				new SimpleDateFormat("dd/MM/yyyy").parse("04/05/2020"));
+		
+		articoloPerTest13.setOrdine(ordinePerTest16);
+
+		
+		ordineServiceInstance.inserisci(ordinePerTest16);
+		articoloServiceInstance.inserisci(articoloPerTest13);
+		
+		Categoria cartegoriaPerTest8 = new Categoria("Libri", "012914G");
+		
+		categoriaServiceInstance.inserisci(cartegoriaPerTest8);
+		articoloServiceInstance.aggiungiCategoria(articoloPerTest13, cartegoriaPerTest8);
+		int controlloStringa = 006;
+		List<String> risultatiQuery = ordineServiceInstance.cercaListaIndirizziConNumeroSerialeArticoloCheContiene(controlloStringa);
+		for(String stringInput : risultatiQuery)
+			System.out.println(stringInput);
+		
+		System.out.println("testCercaListaIndirizziConNumeroSerialeArticoloCheContiene concluso...");
+	}
 }

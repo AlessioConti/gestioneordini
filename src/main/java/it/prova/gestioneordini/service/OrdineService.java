@@ -26,4 +26,6 @@ public interface OrdineService {
 	public List<Ordine> cercaOrdiniConArticoliDiCategoria(Categoria input) throws Exception;
 	
 	public Ordine prendiOrdineSpeditoPiuRecente(Categoria input) throws Exception;
+	
+	public List<String> cercaListaIndirizziConNumeroSerialeArticoloCheContiene(int input) throws Exception;
 }

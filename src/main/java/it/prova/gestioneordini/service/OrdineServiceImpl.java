@@ -175,5 +175,20 @@ public class OrdineServiceImpl implements OrdineService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 	}
+	
+	public List<String> cercaListaIndirizziConNumeroSerialeArticoloCheContiene(int input) throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			ordineDAO.setEntityManager(entityManager);
+			
+			return ordineDAO.findIndirizziConStringaNelNumeroSerialeArticoli(input);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
 
 }
