@@ -152,6 +152,22 @@ public class ArticoloServiceImpl implements ArticoloService {
 			
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+	
+	public long trovaSommaPrezziDataUnaCategoria(Categoria input) throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		
+		try {
+			articoloDAO.setEntityManager(entityManager);
+			
+			return articoloDAO.findPrezzoTotaleDaUnaCategoria(input);
+		}catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {

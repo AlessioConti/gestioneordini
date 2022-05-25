@@ -54,9 +54,10 @@ public class TestOrdini {
 			testRimozioneOrdine(ordineServiceInstance);
 			
 			testCercaPerCategoria(ordineServiceInstance, categoriaServiceInstance);
-			*/
-			testPrendiCategorieDatoUnOrdine(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
+			testPrendiCategorieDatoUnOrdine(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			*/
+			testPrendiSommaArticoliDaUnaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 		}catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -243,6 +244,30 @@ public class TestOrdini {
 			System.out.println(categoriaInput);
 		
 		System.out.println("testPrendiCategorieDatoUnOrdine concluso.......");
+	}
+	
+	private static void testPrendiSommaArticoliDaUnaCategoria(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception{
+		System.out.println("testPrendiSommaArticoliDaUnaCategoria inizializzato.........");
+		
+		Ordine ordineProva = new Ordine("Prova12", "Via Mosca, 32", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
+		
+		Articolo articoloDaInserire7 = new Articolo("Test Descrizione11", 0020001, 300, new SimpleDateFormat("yyyy-MM-dd").parse("2005-05-23"));
+		
+		articoloDaInserire7.setOrdine(ordineProva);
+		ordineServiceInstance.inserisci(ordineProva);
+		articoloServiceInstance.inserisci(articoloDaInserire7);
+		
+		Categoria categoriaNuova = new Categoria("Categoria 2", "00010002");
+		categoriaServiceInstance.inserisci(categoriaNuova);
+		System.out.println(categoriaNuova.getId());
+		
+		articoloServiceInstance.aggiungiCategoria(articoloDaInserire7, categoriaNuova);
+		
+		long prezzo = articoloServiceInstance.trovaSommaPrezziDataUnaCategoria(categoriaNuova);
+		
+		System.out.println(prezzo);
+		
+		System.out.println("testPrendiSommaArticoliDaUnaCategoria concluso.........");
 	}
 
 }

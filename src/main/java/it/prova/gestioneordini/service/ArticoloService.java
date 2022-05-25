@@ -22,4 +22,6 @@ public interface ArticoloService {
 	public Articolo ricercaPerIDFetchingCategorie(Long id) throws Exception;
 	
 	public void aggiungiCategoria(Articolo articoloInstance, Categoria categoriaInstance) throws Exception;
+	
+	public long trovaSommaPrezziDataUnaCategoria(Categoria input) throws Exception;
 }
