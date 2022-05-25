@@ -56,8 +56,11 @@ public class TestOrdini {
 			testCercaPerCategoria(ordineServiceInstance, categoriaServiceInstance);
 			
 			testPrendiCategorieDatoUnOrdine(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
-			*/
+			
 			testPrendiSommaArticoliDaUnaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			*/
+			testFindIlPiuRecentementeSpeditoDataCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			
 		}catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -268,6 +271,29 @@ public class TestOrdini {
 		System.out.println(prezzo);
 		
 		System.out.println("testPrendiSommaArticoliDaUnaCategoria concluso.........");
+	}
+	
+	private static void testFindIlPiuRecentementeSpeditoDataCategoria(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception{
+		System.out.println("testFindIlPiuRecentementeSpeditoDataCategoria inizializzato......");
+		
+		Ordine ordineProvaRimozione = new Ordine("Prova14", "Via Mosca, 40", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
+
+		Articolo articoloDaInserire9 = new Articolo("Test Descrizione12", 0010002, 213, new SimpleDateFormat("yyyy-MM-dd").parse("2005-05-23"));
+		Categoria categoriaNuova = new Categoria("Categoria 10", "00010001");
+		
+		
+		ordineServiceInstance.inserisci(ordineProvaRimozione);
+		articoloDaInserire9.setOrdine(ordineProvaRimozione);
+		articoloServiceInstance.inserisci(articoloDaInserire9);
+
+		categoriaServiceInstance.inserisci(categoriaNuova);
+		
+		System.out.println(categoriaNuova);
+		System.out.println(articoloDaInserire9);
+		categoriaServiceInstance.aggiungiArticolo(categoriaNuova, articoloDaInserire9);
+		
+		System.out.println(ordineServiceInstance.prendiOrdineSpeditoPiuRecente(categoriaNuova));
+		System.out.println("testFindIlPiuRecentementeSpeditoDataCategoria concluso......");
 	}
 
 }

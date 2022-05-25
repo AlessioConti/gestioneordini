@@ -12,4 +12,6 @@ public interface OrdineDAO extends IBaseDAO<Ordine>{
 	
 	public List<Ordine> findAllWIthArticoloWithCategoria(Categoria input);
 	
+	public Ordine findIlPiuRecentementeSpeditoDataCategoria(Categoria input);
+	
 }

@@ -1,6 +1,7 @@
 package it.prova.gestioneordini.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ public class Categoria {
 	private LocalDateTime updateDateTime;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categorie")
-	private List<Articolo> articoli;
+	private List<Articolo> articoli = new ArrayList<Articolo>();
 	
 	public Categoria() {}
 	

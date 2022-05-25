@@ -24,4 +24,6 @@ public interface OrdineService {
 	public void aggiungiArticolo(Ordine ordineInstance, Articolo articoloInstance) throws Exception;
 	
 	public List<Ordine> cercaOrdiniConArticoliDiCategoria(Categoria input) throws Exception;
+	
+	public Ordine prendiOrdineSpeditoPiuRecente(Categoria input) throws Exception;
 }
