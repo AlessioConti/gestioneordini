@@ -3,8 +3,10 @@ package it.prova.gestioneordini.dao.ordine;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
 
 public class OrdineDAOImpl implements OrdineDAO {
@@ -54,6 +56,12 @@ public class OrdineDAOImpl implements OrdineDAO {
 		TypedQuery<Ordine> query = entityManager.createQuery("select o from Ordine o left join fetch o.articoli a where o.id = :idOrd", Ordine.class);
 		query.setParameter("idOrd", id);
 		return query.getResultList().stream().findFirst().orElse(null);
+	}
+	
+	public List<Ordine> findAllWIthArticoloWithCategoria(Categoria input){
+		Query q = entityManager.createNativeQuery("select distinct o.id from ordine o INNER JOIN articolo a on o.id=a.ordine_id INNER JOIN articolo_categoria ac on a.id=ac.articolo_id INNER JOIN categoria c on c.id=ac.categoria_id where c.id= :idCat");
+		q.setParameter("idCat", input.getId());
+		return q.getResultList();
 	}
 
 }

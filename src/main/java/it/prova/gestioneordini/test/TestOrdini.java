@@ -50,8 +50,10 @@ public class TestOrdini {
 			testRimozioneArticolo(articoloServiceInstance);
 			
 			testRimozioneCategoria(categoriaServiceInstance);
-			*/
+			
 			testRimozioneOrdine(ordineServiceInstance);
+			*/
+			testCercaPerCategoria(ordineServiceInstance, categoriaServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -205,6 +207,18 @@ public class TestOrdini {
 		ordineServiceInstance.rimuovi(ordineDaRimuovere.getId());
 		
 		System.out.println("testRimozioneOrdine concluso.......");
+	}
+	
+	private static void testCercaPerCategoria(OrdineService ordineServiceInstance, CategoriaService categoriaServiceInstance) throws Exception{
+		System.out.println("testCercaPerCategoria inizializzato........");
+		
+		List<Categoria> categorie = categoriaServiceInstance.listAll();
+		
+		Categoria categoriaPerRicerca = categorie.get(0);
+		
+		ordineServiceInstance.cercaOrdiniConArticoliDiCategoria(categoriaPerRicerca);
+		
+		System.out.println("testCercaPerCategoria concluso........");
 	}
 
 }
