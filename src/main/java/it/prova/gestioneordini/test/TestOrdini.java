@@ -37,8 +37,10 @@ public class TestOrdini {
 			System.out.println("Nella tabella Ordine ci sono " +ordineServiceInstance.listAll().size()+ " elementi.");
 			
 			testAggiornaOrdine(ordineServiceInstance);
-			*/
+			
 			testRimozioneArticolo(articoloServiceInstance);
+			*/
+			testInserimentoArticoloInOrdine(ordineServiceInstance, articoloServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -82,20 +84,18 @@ public class TestOrdini {
 	
 	private static void testInserimentoArticoloInOrdine(OrdineService ordineServiceInstance, ArticoloService articoloServiceInstance) throws Exception{
 		System.out.println("testInserimentoArticoloInOrdine inizializzato.......");
-		Ordine ordineProvaInserimento = new Ordine("Prova2", "Via Mosca, 10", new SimpleDateFormat("yyyy-MM-dd").parse("2004-07-27"));
-		ordineServiceInstance.inserisci(ordineProvaInserimento);
-		if(ordineProvaInserimento.getId() == null)
-			throw new RuntimeException("testInserimentoArticoloInOrdine FALLITO: ordine non completato");
+		Ordine ordineProvaInserimento = new Ordine("Prova7", "Via Mosca, 22", new SimpleDateFormat("yyyy-MM-dd").parse("2004-07-27"));
 		
 		Articolo articoloDaInserire1 = new Articolo("Test Descrizione1", 00010001, 13, new SimpleDateFormat("yyyy-MM-dd").parse("2022-05-23"));
-		if(articoloDaInserire1.getId() == null)
-			throw new RuntimeException("testInserimentoArticoloInOrdine FALLITO: articolo non completato");
+
+		articoloDaInserire1.setOrdine(ordineProvaInserimento);
 		
-		Articolo articoloDaInserire2 = new Articolo("Test Descrizione2", 00010002, 22, new SimpleDateFormat("yyyy-MM-dd").parse("2022-05-23"));
-		if(articoloDaInserire2.getId() == null)
-			throw new RuntimeException("testInserimentoArticoloInOrdine FALLITO: articolo non completato");
 		
-		//DA COMPLETARE IN CLASSE, INFORMAZIONI POCO CHIARE
+		ordineServiceInstance.inserisci(ordineProvaInserimento);
+		
+		articoloServiceInstance.inserisci(articoloDaInserire1);
+		
+		System.out.println("testInserimentoArticoloInOrdine concluso.......");
 	}
 	
 	private static void testRimozioneArticolo(ArticoloService articoloServiceInstance) throws Exception{
