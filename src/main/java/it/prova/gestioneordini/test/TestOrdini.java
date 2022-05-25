@@ -39,8 +39,10 @@ public class TestOrdini {
 			testAggiornaOrdine(ordineServiceInstance);
 			
 			testRimozioneArticolo(articoloServiceInstance);
-			*/
+			
 			testInserimentoArticoloInOrdine(ordineServiceInstance, articoloServiceInstance);
+			*/
+			testRimuoviArticoloDaOrdine(ordineServiceInstance, articoloServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -96,6 +98,26 @@ public class TestOrdini {
 		articoloServiceInstance.inserisci(articoloDaInserire1);
 		
 		System.out.println("testInserimentoArticoloInOrdine concluso.......");
+	}
+	
+	private static void testRimuoviArticoloDaOrdine(OrdineService ordineServiceInstance, ArticoloService articoloServiceInstance) throws Exception{
+		System.out.println("testRimuoviArticoloDaOrdine inizializzato.......");
+		
+		Ordine ordineProvaRimozione = new Ordine("Prova8", "Via Mosca, 24", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
+		
+		Articolo articoloDaInserire5 = new Articolo("Test Descrizione7", 00010007, 113, new SimpleDateFormat("yyyy-MM-dd").parse("2002-05-23"));
+
+		articoloDaInserire5.setOrdine(ordineProvaRimozione);
+		
+		
+		ordineServiceInstance.inserisci(ordineProvaRimozione);
+		
+		articoloServiceInstance.inserisci(articoloDaInserire5);
+	
+		
+		articoloServiceInstance.rimuovi(articoloDaInserire5.getId());
+		
+		System.out.println("testRimuoviArticoloDaOrdine concluso.......");
 	}
 	
 	private static void testRimozioneArticolo(ArticoloService articoloServiceInstance) throws Exception{
