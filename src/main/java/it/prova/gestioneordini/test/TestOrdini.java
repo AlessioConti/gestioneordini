@@ -7,14 +7,10 @@ import it.prova.gestioneordini.service.OrdineService;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.hibernate.mapping.Array;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
-import it.prova.gestioneordini.exception.ArticoloConCategoriaAssegnataException;
 import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
@@ -33,7 +29,7 @@ public class TestOrdini {
 			System.out.println("Nella tabella Ordine ci sono " +ordineServiceInstance.listAll().size()+ " elementi.");
 			
 			System.out.println("INIZIO TESTING");
-			/*
+			
 			testInserimentoNuovoOrdine(ordineServiceInstance);
 			System.out.println("Nella tabella Ordine ci sono " +ordineServiceInstance.listAll().size()+ " elementi.");
 			
@@ -64,7 +60,7 @@ public class TestOrdini {
 			testCercaListaOrdiniFattiAFebbraio(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 			testCercaLaSommaPrezziArticoliMarioRossi(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
-			*/
+			
 			testCercaListaIndirizziConNumeroSerialeArticoloCheContiene(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 			

@@ -65,9 +65,9 @@ public class OrdineDAOImpl implements OrdineDAO {
 	}
 	
 	public Ordine findIlPiuRecentementeSpeditoDataCategoria(Categoria input) {
-		Query q = entityManager.createNativeQuery("select o.nomedestinatario from ordine o INNER JOIN articolo a ON o.id=a.ordine_id INNER JOIN articolo_categoria ac ON a.id=ac.articolo_id INNER JOIN categoria c ON c.id=ac.categoria_id WHERE c.id = :idCat ORDER BY(o.dataspedizione) DESC;");
-		q.setParameter("idCat", input.getId());
-		return (Ordine) q.getResultList().stream().findFirst().orElse(null);
+		TypedQuery<Ordine> query = entityManager.createQuery(
+				"select o from Ordine o join o.articoli a join a.categorie c where c.id = ?1 order by o.dataSpedizione desc", Ordine.class);
+		return query.setParameter(1, input.getId()).getResultList().get(0);
 	}
 	
 	public List<String> findIndirizziConStringaNelNumeroSerialeArticoli(int input){
