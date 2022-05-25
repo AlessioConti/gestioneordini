@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.dao.ordine.OrdineDAO;
+import it.prova.gestioneordini.model.Articolo;
 import it.prova.gestioneordini.model.Ordine;
 
 public class OrdineServiceImpl implements OrdineService {
@@ -101,6 +102,30 @@ public class OrdineServiceImpl implements OrdineService {
 			ordineDAO.setEntityManager(entityManager);
 			
 			ordineDAO.delete(ordineDAO.get(id));
+			
+			entityManager.getTransaction().commit();
+		}catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
+	
+	public void aggiungiArticolo(Ordine ordineInstance, Articolo articoloInstance) throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+			
+			ordineDAO.setEntityManager(entityManager);
+			
+			ordineInstance = entityManager.merge(ordineInstance);
+			
+			articoloInstance = entityManager.merge(articoloInstance);
+			
+			ordineInstance.getArticoli().add(articoloInstance);
 			
 			entityManager.getTransaction().commit();
 		}catch (Exception e) {
