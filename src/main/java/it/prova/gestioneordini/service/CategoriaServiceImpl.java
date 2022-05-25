@@ -160,5 +160,21 @@ public class CategoriaServiceImpl implements CategoriaService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 	}
+	
+	public List<String> cercaListaOrdiniFattiAFebbraio() throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		
+		try {
+			categoriaDAO.setEntityManager(entityManager);
+			
+			return categoriaDAO.findCodiciConOrdiniFattiAFebbraio();
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+		
+	}
 
 }

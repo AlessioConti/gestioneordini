@@ -63,5 +63,10 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		q.setParameter("idOrd", input.getId());
 		return q.getResultList();
 	}
+	
+	public List<String> findCodiciConOrdiniFattiAFebbraio(){
+		Query q = entityManager.createNativeQuery("select distinct c.codice from categoria c INNER JOIN articolo_categoria ac ON c.id=ac.categoria_id INNER JOIN articolo a ON a.id=ac.articolo_id INNER JOIN ordine o ON o.id=a.ordine_id WHERE o.dataspedizione BETWEEN '2022-02-01' AND '2022-02-28'");
+		return q.getResultList();
+	}
 
 }
