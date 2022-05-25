@@ -8,24 +8,24 @@ import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
 
 public interface OrdineService {
-	
+
 	public List<Ordine> listAll() throws Exception;
-	
-	public Ordine caricaSingoloElemento(Long  id) throws Exception;
-	
+
+	public Ordine caricaSingoloElemento(Long id) throws Exception;
+
 	public void aggiorna(Ordine ordineInstance) throws Exception;
-	
+
 	public void inserisci(Ordine ordineInstance) throws Exception;
-	
+
 	public void rimuovi(Long id) throws Exception;
-	
+
 	public void setOrdineDAO(OrdineDAO ordineDAO);
-	
+
 	public void aggiungiArticolo(Ordine ordineInstance, Articolo articoloInstance) throws Exception;
-	
+
 	public List<Ordine> cercaOrdiniConArticoliDiCategoria(Categoria input) throws Exception;
-	
+
 	public Ordine prendiOrdineSpeditoPiuRecente(Categoria input) throws Exception;
-	
+
 	public List<String> cercaListaIndirizziConNumeroSerialeArticoloCheContiene(int input) throws Exception;
 }

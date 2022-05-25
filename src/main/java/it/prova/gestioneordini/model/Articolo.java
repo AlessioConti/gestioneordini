@@ -22,37 +22,38 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name="articolo")
+@Table(name = "articolo")
 public class Articolo {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	@Column(name="descrizione")
+	@Column(name = "descrizione")
 	private String descrizione;
-	@Column(name="numeroseriale")
+	@Column(name = "numeroseriale")
 	private int numeroSeriale;
-	@Column(name="prezzosingolo")
+	@Column(name = "prezzosingolo")
 	private int prezzoSingolo;
-	@Column(name="datainserimento")
+	@Column(name = "datainserimento")
 	private Date dataInserimento;
-	
+
 	@CreationTimestamp
 	private LocalDateTime createDateTime;
 	@UpdateTimestamp
 	private LocalDateTime updateDateTime;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ordine_id", nullable = false)
 	private Ordine ordine;
-	
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
 	@JoinTable(name = "articolo_categoria", joinColumns = @JoinColumn(name = "articolo_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "ID"))
 	private Set<Categoria> categorie = new HashSet<Categoria>();
-	
-	public Articolo() {}
-	
+
+	public Articolo() {
+	}
+
 	public Articolo(String descrizione, int numeroSeriale, int prezzoSingolo, Date dataInserimento) {
 		super();
 		this.descrizione = descrizione;
@@ -60,44 +61,55 @@ public class Articolo {
 		this.prezzoSingolo = prezzoSingolo;
 		this.dataInserimento = dataInserimento;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
+
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
+
 	public int getNumeroSeriale() {
 		return numeroSeriale;
 	}
+
 	public void setNumeroSeriale(int numeroSeriale) {
 		this.numeroSeriale = numeroSeriale;
 	}
+
 	public int getPrezzoSingolo() {
 		return prezzoSingolo;
 	}
+
 	public void setPrezzoSingolo(int prezzoSingolo) {
 		this.prezzoSingolo = prezzoSingolo;
 	}
+
 	public Date getDataInserimento() {
 		return dataInserimento;
 	}
+
 	public void setDataInserimento(Date dataInserimento) {
 		this.dataInserimento = dataInserimento;
 	}
+
 	public Set<Categoria> getCategorie() {
 		return categorie;
 	}
+
 	public void setCategorie(Set<Categoria> categorie) {
 		this.categorie = categorie;
 	}
-	
+
 	public LocalDateTime getCreateDateTime() {
 		return createDateTime;
 	}
@@ -127,7 +139,5 @@ public class Articolo {
 		return "Articolo [id=" + id + ", descrizione=" + descrizione + ", numeroSeriale=" + numeroSeriale
 				+ ", prezzoSingolo=" + prezzoSingolo + ", dataInserimento=" + dataInserimento + "]";
 	}
-	
-	
-	
+
 }

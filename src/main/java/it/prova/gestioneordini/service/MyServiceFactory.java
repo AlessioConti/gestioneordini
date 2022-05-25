@@ -25,7 +25,7 @@ public class MyServiceFactory {
 
 		return articoloServiceInstance;
 	}
-	
+
 	public static CategoriaService getCategoriaServiceInstance() {
 		if (categoriaServiceInstance == null)
 			categoriaServiceInstance = new CategoriaServiceImpl();
