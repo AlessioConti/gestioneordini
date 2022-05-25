@@ -16,6 +16,7 @@ import org.hibernate.mapping.Array;
 import it.prova.gestioneordini.dao.EntityManagerUtil;
 import it.prova.gestioneordini.exception.ArticoloConCategoriaAssegnataException;
 import it.prova.gestioneordini.model.Articolo;
+import it.prova.gestioneordini.model.Categoria;
 import it.prova.gestioneordini.model.Ordine;
 
 public class TestOrdini {
@@ -41,8 +42,12 @@ public class TestOrdini {
 			testRimozioneArticolo(articoloServiceInstance);
 			
 			testInserimentoArticoloInOrdine(ordineServiceInstance, articoloServiceInstance);
-			*/
+			
 			testRimuoviArticoloDaOrdine(ordineServiceInstance, articoloServiceInstance);
+			
+			testAggiungiArticoloACategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			*/
+			testAggiungiCategoriaAdArticolo(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -118,6 +123,48 @@ public class TestOrdini {
 		articoloServiceInstance.rimuovi(articoloDaInserire5.getId());
 		
 		System.out.println("testRimuoviArticoloDaOrdine concluso.......");
+	}
+	
+	private static void testAggiungiArticoloACategoria(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception{
+		System.out.println("testAggiungiArticoloACategoria inizializzato.......");
+		
+		Ordine ordineProvaRimozione = new Ordine("Prova9", "Via Mosca, 26", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
+
+	
+		
+		Articolo articoloDaInserire6 = new Articolo("Test Descrizione8", 0010002, 213, new SimpleDateFormat("yyyy-MM-dd").parse("2005-05-23"));
+
+		
+		articoloDaInserire6.setOrdine(ordineProvaRimozione);
+		ordineServiceInstance.inserisci(ordineProvaRimozione);
+
+		articoloServiceInstance.inserisci(articoloDaInserire6);
+		
+		Categoria categoriaCollegamento = new Categoria("Categoria 1", "00010001");
+		categoriaServiceInstance.inserisci(categoriaCollegamento);
+		
+		categoriaServiceInstance.aggiungiArticolo(categoriaCollegamento, articoloDaInserire6);
+		
+		System.out.println("testAggiungiArticoloACategoria concluso.......");
+	}
+	
+	private static void testAggiungiCategoriaAdArticolo(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception{
+		System.out.println("testAggiungiCategoriaAdArticolo iniziallizzato......");
+		
+		Ordine ordineProvaRimozione = new Ordine("Prova10", "Via Mosca, 28", new SimpleDateFormat("yyyy-MM-dd").parse("2004-06-11"));
+		
+		Articolo articoloDaInserire7 = new Articolo("Test Descrizione9", 0010004, 223, new SimpleDateFormat("yyyy-MM-dd").parse("2005-05-23"));
+		
+		articoloDaInserire7.setOrdine(ordineProvaRimozione);
+		ordineServiceInstance.inserisci(ordineProvaRimozione);
+		articoloServiceInstance.inserisci(articoloDaInserire7);
+		
+		Categoria categoriaNuova = new Categoria("Categoria 2", "00010002");
+		categoriaServiceInstance.inserisci(categoriaNuova);
+		
+		articoloServiceInstance.aggiungiCategoria(articoloDaInserire7, categoriaNuova);
+		
+		System.out.println("testAggiungiCategoriaAdArticolo concluso......");
 	}
 	
 	private static void testRimozioneArticolo(ArticoloService articoloServiceInstance) throws Exception{
