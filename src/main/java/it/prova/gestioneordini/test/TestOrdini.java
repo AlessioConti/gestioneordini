@@ -48,8 +48,10 @@ public class TestOrdini {
 			testAggiungiCategoriaAdArticolo(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 			testRimozioneArticolo(articoloServiceInstance);
-			*/
+			
 			testRimozioneCategoria(categoriaServiceInstance);
+			*/
+			testRimozioneOrdine(ordineServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -191,6 +193,18 @@ public class TestOrdini {
 		categoriaServiceInstance.rimuovi(categoriaDaRimuovere.getId());
 		
 		System.out.println("testRimozioneCategoria concluso.....");
+	}
+	
+	private static void testRimozioneOrdine(OrdineService ordineServiceInstance) throws Exception{
+		System.out.println("testRimozioneOrdine inizializzato.......");
+		
+		List<Ordine> ordini = ordineServiceInstance.listAll();
+		
+		Ordine ordineDaRimuovere = ordini.get(0);
+		
+		ordineServiceInstance.rimuovi(ordineDaRimuovere.getId());
+		
+		System.out.println("testRimozioneOrdine concluso.......");
 	}
 
 }
