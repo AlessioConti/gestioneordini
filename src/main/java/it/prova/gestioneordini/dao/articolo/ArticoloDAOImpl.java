@@ -68,5 +68,11 @@ public class ArticoloDAOImpl implements ArticoloDAO {
 		BigDecimal result = (BigDecimal) q.getResultList().stream().findFirst().get();
 		return result.longValue();
 	}
+	
+	public long findSommaArticoliPerMarioRossi() {
+		Query q = entityManager.createNativeQuery("select sum(a.prezzosingolo) from articolo a INNER JOIN ordine o ON o.id=a.ordine_id WHERE o.nomedestinatario LIKE 'Mario Rossi'");
+		BigDecimal result = (BigDecimal) q.getResultList().stream().findFirst().get();
+		return result.longValue();
+	}
 
 }

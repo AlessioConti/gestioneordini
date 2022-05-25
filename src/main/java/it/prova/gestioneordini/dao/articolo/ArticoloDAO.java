@@ -8,4 +8,6 @@ public interface ArticoloDAO extends IBaseDAO<Articolo>{
 	public Articolo findByIdFetchingCategorie(Long id);
 	
 	public long findPrezzoTotaleDaUnaCategoria(Categoria input);
+	
+	public long findSommaArticoliPerMarioRossi();
 }

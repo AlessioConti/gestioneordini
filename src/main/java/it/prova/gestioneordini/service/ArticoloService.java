@@ -24,4 +24,6 @@ public interface ArticoloService {
 	public void aggiungiCategoria(Articolo articoloInstance, Categoria categoriaInstance) throws Exception;
 	
 	public long trovaSommaPrezziDataUnaCategoria(Categoria input) throws Exception;
+	
+	public long trovaSommaArticoliPerMarioRossi() throws Exception;
 }

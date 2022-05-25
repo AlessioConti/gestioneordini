@@ -60,8 +60,10 @@ public class TestOrdini {
 			testPrendiSommaArticoliDaUnaCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 			testFindIlPiuRecentementeSpeditoDataCategoria(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
-			*/
+			
 			testCercaListaOrdiniFattiAFebbraio(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
+			*/
+			testCercaLaSommaPrezziArticoliMarioRossi(articoloServiceInstance, categoriaServiceInstance, ordineServiceInstance);
 			
 		}catch (Throwable e) {
 			e.printStackTrace();
@@ -320,5 +322,28 @@ public class TestOrdini {
 		
 		System.out.println("testCercaListaOrdiniFattiAFebbraio concluso........");
 	}
-
+	
+	public static void testCercaLaSommaPrezziArticoliMarioRossi(ArticoloService articoloServiceInstance, CategoriaService categoriaServiceInstance, OrdineService ordineServiceInstance) throws Exception {
+		System.out.println("testCercaLaSommaPrezziArticoliMarioRossi inizializzato.....");
+		
+		Ordine ordinePerTest15 = new Ordine("Mario Rossi", "Via Mosca 44",
+				new SimpleDateFormat("dd/MM/yyyy").parse("10/05/2009"));
+		Articolo articoloPerTest12 = new Articolo("Prova16", 00060001, 125,
+				new SimpleDateFormat("dd/MM/yyyy").parse("04/05/2021"));
+		Articolo articoloPerTest13 = new Articolo("Prova17", 00060002, 100,
+				new SimpleDateFormat("dd/MM/yyyy").parse("14/07/2021"));
+		articoloPerTest12.setOrdine(ordinePerTest15);
+		articoloPerTest13.setOrdine(ordinePerTest15);
+		ordineServiceInstance.inserisci(ordinePerTest15);
+		articoloServiceInstance.inserisci(articoloPerTest12);
+		articoloServiceInstance.inserisci(articoloPerTest13);
+		Categoria cartegoriaPerTest7 = new Categoria("Libri", "012914G");
+		categoriaServiceInstance.inserisci(cartegoriaPerTest7);
+		articoloServiceInstance.aggiungiCategoria(articoloPerTest12, cartegoriaPerTest7);
+		articoloServiceInstance.aggiungiCategoria(articoloPerTest13, cartegoriaPerTest7);
+		
+		System.out.println(articoloServiceInstance.trovaSommaArticoliPerMarioRossi());
+		
+		System.out.println("testCercaLaSommaPrezziArticoliMarioRossi concluso........");
+	}	
 }

@@ -174,5 +174,22 @@ public class ArticoloServiceImpl implements ArticoloService {
 			EntityManagerUtil.closeEntityManager(entityManager);
 		}
 	}
+	
+	public long trovaSommaArticoliPerMarioRossi() throws Exception{
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		
+		try {
+			
+			articoloDAO.setEntityManager(entityManager);
+			
+			return articoloDAO.findSommaArticoliPerMarioRossi();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
+	}
 
 }
